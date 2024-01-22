@@ -1,3 +1,5 @@
+import copy
+
 catalog = [
     ['시간의 틈', '반짝임의 어둠', '망각의 경계'],
     ['연기의 수수께끼', '장면의 고백', '드라마의 그림자'],
@@ -5,7 +7,7 @@ catalog = [
     ['성공의 열쇠', '내면의 변화', '목표의 달성'],
 ]
 
-backup_catalog = catalog[:]
+backup_catalog = copy.deepcopy(catalog)
 
 
 ''' 
