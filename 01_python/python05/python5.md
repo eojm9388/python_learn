@@ -435,6 +435,70 @@ person.update(country='KOREA')
 print(person)  # {'name': 'Jane', 'age': 50, 'gender': 'Female', 'country': 'KOREA'}
 ```
 
+## 복사
+
+### 데이터 타입과 복사
+- 파이썬에서는 데이터에 분류에 따라 복사가 달라짐
+- "변경 가능한 데이터 타입"과 "변경 불가능한 데이터 타입"을 다르게 다룸
+
+```python
+# 가변 데이터 타입
+a = [1, 2, 3, 4]
+b = a
+a[0] = 100
+print(a) # [100, 2, 3, 4]
+print(b) # [100, 2, 3, 4]
+# 불변 데이터 타입
+a = 9
+b = a
+b = 100
+print(b) # 100
+print(a) # 9
+```
+
+### 복사 유형
+1. 할당
+- 할당 연산자 (`=`)를 통한 복사는 해당 객체에 대한 객체 참조를 복사
+``` python
+# 할당
+original_list = [1, 2, 3]
+copy_list = original_list
+
+copy_list[0] = 'hello'
+print(original_list) # ['hello', 2, 3]
+```
+
+2. 얕은 복사
+```python
+a = [1, 2, 3]
+b = a[:] # 슬라이싱은 자른 "새로운 리스트"를 반환
+
+b[0] = 100
+print(a) # [1, 2, 3]
+
+# 얕은 복사의 한계
+a = [1, 2, [100, 200]]
+b = a[:]
+
+b[2][0] = 999
+print(a) # [1, 2, [999, 200]]
+# a와 b의 주소는 다르지만 내부 객체의 주소는 같기 때문에 함께 변경됨
+```
+
+3. 깊은 복사
+- 내부에 중첩된 모든 객체까지 새로운 객체 주소를 참조하도록 함
+```python
+import copy
+
+original_list = [1, 2, [1, 2]]
+deep_copy_list = copy.deepcopy(original_list)
+
+deep_copy_list[2][0] = 100
+
+print(original_list) # [1, 2, [1, 2]]
+print(deep_copy_list) # [1, 2, [100, 2]]
+```
+
 ## 참고
 문자열에 포함된 문자들의 유형을 판별하는 메서드
 - `isdecimal()`
@@ -443,4 +507,3 @@ print(person)  # {'name': 'Jane', 'age': 50, 'gender': 'Female', 'country': 'KOR
   - `isdigit()`과 비슷하지만, 유니코드 숫자도 인식 ('①’ 도 숫자로 인식)
 - `isnumeric()`
   - `isdigit()`과 유사하지만, 몇 가지 추가적인 유니코드 문자들을 인식, (분수, 지수, 루트 기호도 숫자로 인식)
-
